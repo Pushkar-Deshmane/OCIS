@@ -1,0 +1,90 @@
+﻿@model IEnumerable<Omnichannel.Models.SUSIAssistlineInteraction>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <h2>SUSI Interactions</h2>
+        </div>
+        <div class="col-6 text-end">
+            <a asp-controller="SUSIAssistlineInteraction" asp-action="Create" class="btn btn-primary"><i class="bi bi-plus-circle"></i> &nbsp; Create</a>
+        </div>
+    </div>
+    <div class="row">
+        <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.CallId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CallReason)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SubCategory)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FurtherDetail)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CallDriver)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.InfoToAgent)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.QueryStatus)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Comment)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CreatedDate)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CallId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CallReason.CallReasonName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SubCategory.SubCategoryName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FurtherDetail.FurtherDetailName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CallDriver.CallDriverName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.InfoToAgent)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.QueryStatus.QueryStatusName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Comment)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedDate)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+    }
+        </tbody>
+    </table>
+    </div>
+</div>

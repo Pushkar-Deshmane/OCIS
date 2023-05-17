@@ -1,0 +1,72 @@
+﻿<style>
+    #ccpContainer {
+        width:265px;
+        height:465px;
+        overflow:hidden;
+        float:left;
+        margin-left:22px;
+        padding:25px;
+    }
+    #section-main {
+        padding:10px;
+        width:960px;
+        height:495px;
+        margin-left:0px;
+        float:left;
+        overflow: hidden;
+    }
+</style>
+<script src="~/ccp_resources/jquery-3.1.0.min.js"></script>
+<script type="text/javascript" src="~/ccp_resources/amazon-connect-v1.2.0-23-g430d835.js"></script>
+<section id="ccpContainer">
+
+    <script>
+        //----------------init CCP-----------------------------
+        var container = document.getElementById("ccpContainer");
+
+        //connect.core.initCCP(
+        //    container, {
+        //        ccpUrl: 'https://abtran-rsa-demo.my.connect.aws/connect/ccp#/',
+        //        softphone: {
+        //            allowFramedSoftphone: true,
+        //            disableRingtone: false
+        //        }
+        //    }
+        //)
+
+        connect.core.initCCP(document.getElementById('ccpContainer'), {
+            ccpUrl: 'https://abtran-rsa-demo.my.connect.aws/connect/ccp#/',
+            region: 'eu-central-1',
+            loginPopup: true,
+            loginPopupAutoClose: true,
+            softphone: {
+                allowFramedSoftphone: true
+            },
+            pageOptions: {
+                enableAudioDeviceSettings: true,
+                enablePhoneTypeSettings: true
+            }
+        })
+        //-----------------End init CCP-------------------------
+
+        //-----------------CCP Events----------------------------
+        connect.contact(function(contact){
+            //--------CCP OnConnecting-----------------
+            contact.onConnecting(function(contact){
+                console.log("CDEBUG >> " + "onConnecting() >> contactId = " + contact.contactId);
+
+                var phoneNumber = contact.getConnections()[1].getAddress()['phoneNumber'];
+                        
+                var attributes = contact.getAttributes();
+                var EmployeeName = attributes["EmployeeName"].value;
+
+                //add details to DIV
+                $("#divDetails").append("<hr/> ALERTING CALL " + contact.contactId + 
+                " from " + EmployeeName +" <"+ phoneNumber + "> at " + new Date().toLocaleString() + "<br/><br/>");
+						
+				document.getElementById("callID").value = contact.contactId;
+            });
+        });                				
+    </script>    
+	<iframe src="~/ccp_resources/ccp.html" allow="microphone" style="width: 100%; height: 100%;"></iframe>
+</section>
