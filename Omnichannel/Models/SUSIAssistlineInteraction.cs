@@ -10,8 +10,8 @@ namespace Omnichannel.Models
         [Key]
         public int Id { get; set; }
         [Required]
-        [DisplayName("Call ID")]
-        public uint CallId { get; set; }
+        [DisplayName("Contact ID")]
+        public Guid ContactId { get; set; }
 
         [DisplayName("Call Reason")]
         public int CallReasonId { get; set; }

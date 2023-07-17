@@ -52,6 +52,8 @@ namespace Omnichannel.Controllers
         // GET: SUSIAssistlineInteraction/Create
         public IActionResult Create()
         {
+            Guid guid = Guid.NewGuid();
+            ViewData["ContactId"] = guid.ToString();
             IEnumerable<string> InfoToAgent = new string[] { "Yes", "No" };
 
             ViewData["CallDriverId"] = new SelectList(_context.CallDrivers, "Id", "CallDriverName");
@@ -72,7 +74,7 @@ namespace Omnichannel.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,CallId,CallReasonId,SubCategoryId,FurtherDetailId,CallDriverId,InfoToAgent,QueryStatusId,Comment,CreatedDate")] SUSIAssistlineInteraction sUSIAssistlineInteraction)
+        public async Task<IActionResult> Create([Bind("Id,ContactId,CallReasonId,SubCategoryId,FurtherDetailId,CallDriverId,InfoToAgent,QueryStatusId,Comment,CreatedDate")] SUSIAssistlineInteraction sUSIAssistlineInteraction)
         {
             if (ModelState.IsValid)
             {
@@ -114,7 +116,7 @@ namespace Omnichannel.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,CallId,CallReasonId,SubCategoryId,FurtherDetailId,CallDriverId,InfoToAgent,QueryStatusId,Comment,CreatedDate")] SUSIAssistlineInteraction sUSIAssistlineInteraction)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,ContactId,CallReasonId,SubCategoryId,FurtherDetailId,CallDriverId,InfoToAgent,QueryStatusId,Comment,CreatedDate")] SUSIAssistlineInteraction sUSIAssistlineInteraction)
         {
             if (id != sUSIAssistlineInteraction.Id)
             {
